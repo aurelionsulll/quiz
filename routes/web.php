@@ -21,6 +21,11 @@ Route::get('gqst','QstController@index');
     Route::post('/createQst','QstController@createQst');
     Route::put('/editQst/{id}','QstController@editQst');
     Route::delete('/delteQst/{id}','QstController@delteQst');
-
+    
+    //-------------- G answer --------------
+    Route::get('/getAnswer','AnswerController@getAnswer');
+    Route::post('/createAnswer','AnswerController@createAnswer');
+    Route::put('/editAnswer/{id}','AnswerController@editAnswer');
+    Route::delete('/delteAnswer/{id}','AnswerController@delteAnswer');
 
 
