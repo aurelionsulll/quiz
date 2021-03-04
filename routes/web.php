@@ -20,12 +20,12 @@ Route::get('gqst','QstController@index');
     Route::get('/getQst','QstController@getQst');
     Route::post('/createQst','QstController@createQst');
     Route::put('/editQst/{id}','QstController@editQst');
-    Route::delete('/delteQst/{id}','QstController@delteQst');
+    Route::delete('/deleteQst/{id}','QstController@deleteQst');
     
     //-------------- G answer --------------
     Route::get('/getAnswer/{id}','AnswerController@getAnswer');
     Route::post('/createAnswer','AnswerController@createAnswer');
     Route::put('/editAnswer/{id}','AnswerController@editAnswer');
-    Route::delete('/delteAnswer/{id}','AnswerController@delteAnswer');
+    Route::delete('/deleteAnswer/{id}','AnswerController@deleteAnswer');
 
 

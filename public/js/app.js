@@ -2141,8 +2141,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2249,7 +2247,7 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: "Annuler"
       }).then(function (result) {
         if (result.value) {
-          _this5.qst["delete"]("/delteQst/" + id);
+          _this5.qst["delete"]("/deleteQst/" + id);
 
           _this5.getQst();
         }
@@ -2276,6 +2274,43 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function () {});
       this.ans.reset();
+    },
+    editAnswer: function editAnswer() {
+      this.ans.put("/editAnswer/" + this.ans.id).then(function () {
+        // this.getAnswer();
+        Vue.swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+          icon: "success",
+          title: "Successfully updated"
+        });
+      })["catch"](function () {});
+    },
+    delteAnswer: function delteAnswer(id) {
+      var _this7 = this;
+
+      Vue.swal({
+        title: "Êtes-vous sûr?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui",
+        cancelButtonText: "Annuler"
+      }).then(function (result) {
+        if (result.value) {
+          _this7.ans["delete"]("/deleteAnswer/" + id);
+
+          _this7.getAnswer(_this7.tempId);
+        }
+      });
     }
   }
 });
@@ -43316,23 +43351,6 @@ var render = function() {
                           return _c("tr", { key: answer.id }, [
                             _c("td", { attrs: { scope: "row" } }, [
                               _c("i", {
-                                staticClass: "far fa-plus-square",
-                                staticStyle: { color: "blue" },
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#exampleModal"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.addAnswerModal(
-                                      _vm.qst,
-                                      _vm.qst.id
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("i", {
                                 staticClass: "fas fa-edit",
                                 staticStyle: {
                                   color: "#5DC067",
@@ -43340,7 +43358,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    return _vm.editModal(_vm.qst)
+                                    return _vm.editAnswer(answer.id)
                                   }
                                 }
                               }),
@@ -43350,13 +43368,19 @@ var render = function() {
                                 staticStyle: { color: "#E00004" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.delteQst(_vm.qst.id)
+                                    return _vm.delteAnswer(answer.id)
                                   }
                                 }
                               })
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(answer.ans))])
+                            _c("td", [
+                              _vm._v(
+                                "\n                                            " +
+                                  _vm._s(answer.ans) +
+                                  "\n                                        "
+                              )
+                            ])
                           ])
                         }),
                         0

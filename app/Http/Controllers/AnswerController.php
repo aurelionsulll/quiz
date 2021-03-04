@@ -28,7 +28,7 @@ class AnswerController extends Controller
         $ans1->save();
     }
 
-    public function delteAnswer($id)
+    public function deleteAnswer($id)
     {
         $qst = Answer::find($id);
         $qst->delete();

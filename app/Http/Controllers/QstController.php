@@ -32,7 +32,7 @@ class QstController extends Controller
         $qst->save();
     }
 
-    public function delteQst($id)
+    public function deleteQst($id)
     {
         $qst = Qst::find($id);
         $qst->delete();

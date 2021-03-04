@@ -45,27 +45,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="answer in datasAnswers" :key="answer.id">
+                                        <tr
+                                            v-for="answer in datasAnswers"
+                                            :key="answer.id"
+                                        >
                                             <td scope="row">
                                                 <i
-                                                    @click="addAnswerModal(qst,qst.id)"
-                                                    class="far fa-plus-square"
-                                                    data-toggle="modal"
-                                                    data-target="#exampleModal"
-                                                    style="color : blue"
-                                                ></i>
-                                                <i
-                                                    @click="editModal(qst)"
+                                                    @click="editAnswer(answer.id)"
                                                     class="fas fa-edit"
                                                     style="color: #5DC067; cursor: pointer;"
                                                 ></i>
                                                 <i
-                                                    @click="delteQst(qst.id)"
+                                                    @click="delteAnswer(answer.id)"
                                                     class="far fa-trash-alt"
                                                     style="color : #E00004"
                                                 ></i>
                                             </td>
-                                            <td>{{ answer.ans }}</td>
+                                            <td>
+                                                {{ answer.ans }}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -219,7 +217,7 @@ export default {
             ans: new Form({
                 id: "",
                 qst_id: "",
-                ans: "",
+                ans: ""
             })
         };
     },
@@ -234,14 +232,16 @@ export default {
             $("#exampleModal").modal("show");
             this.ans.qst_id = id;
             this.tempId = id;
-            this.getAnswer(id)
+            this.getAnswer(id);
         },
 
         getQst() {
             axios.get("/getQst").then(({ data }) => (this.datas = data));
         },
         getAnswer(id) {
-            axios.get("/getAnswer/" + id).then(({ data }) => (this.datasAnswers = data));
+            axios
+                .get("/getAnswer/" + id)
+                .then(({ data }) => (this.datasAnswers = data));
         },
 
         createQst() {
@@ -316,7 +316,7 @@ export default {
                 cancelButtonText: "Annuler"
             }).then(result => {
                 if (result.value) {
-                    this.qst.delete("/delteQst/" + id);
+                    this.qst.delete("/deleteQst/" + id);
                     this.getQst();
                 }
             });
@@ -350,6 +350,51 @@ export default {
                 .catch(() => {});
 
             this.ans.reset();
+        },
+
+        editAnswer() {
+            this.ans
+                .put("/editAnswer/" + this.ans.id)
+                .then(() => {
+                    // this.getAnswer();
+                    Vue.swal({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: toast => {
+                            toast.addEventListener(
+                                "mouseenter",
+                                Swal.stopTimer
+                            );
+                            toast.addEventListener(
+                                "mouseleave",
+                                Swal.resumeTimer
+                            );
+                        },
+                        icon: "success",
+                        title: "Successfully updated"
+                    });
+                })
+                .catch(() => {});
+        },
+
+        delteAnswer(id) {
+            Vue.swal({
+                title: "Êtes-vous sûr?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Oui",
+                cancelButtonText: "Annuler"
+            }).then(result => {
+                if (result.value) {
+                    this.ans.delete("/deleteAnswer/" + id);
+                    this.getAnswer(this.tempId);
+                }
+            });
         }
     }
 };
