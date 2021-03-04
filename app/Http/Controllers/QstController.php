@@ -12,6 +12,11 @@ class QstController extends Controller
         return view('admin.gqst');
     }
 
+    public function getQst() 
+    {
+        return Qst::all();
+    }
+
     public function createQst(Request $request)
     {
         $qst = new Qst();
@@ -19,10 +24,6 @@ class QstController extends Controller
         $qst->save();
     }
 
-    public function getQst() 
-    {
-        return Qst::all();
-    }
 
     public function editQst(Request $request, $id)
     {
@@ -31,7 +32,7 @@ class QstController extends Controller
         $qst->save();
     }
 
-    public function delteQst(Request $request, $id)
+    public function delteQst($id)
     {
         $qst = Qst::find($id);
         $qst->delete();

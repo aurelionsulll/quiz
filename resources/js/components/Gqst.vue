@@ -28,41 +28,47 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Rep 1</label>
+                                <label for="exampleInputEmail1">Rep </label>
                                 <input
-                                    v-model="ans.ans1"
+                                    v-model="ans.ans"
                                     type="text"
                                     class="form-control"
                                     aria-describedby="emailHelp"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Rep 2</label>
-                                <input
-                                    v-model="ans.ans2"
-                                    type="text"
-                                    class="form-control"
-                                    aria-describedby="emailHelp"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Rep 3</label>
-                                <input
-                                    v-model="ans.ans3"
-                                    type="text"
-                                    class="form-control"
-                                    aria-describedby="emailHelp"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Rep 4</label>
-                                <input
-                                    v-model="ans.ans4"
-                                    type="text"
-                                    class="form-control"
-                                    aria-describedby="emailHelp"
-                                />
-                                <input type="hidden" v-model="ans.qst_id">
+                            <div>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Answers</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="answer in datasAnswers" :key="answer.id">
+                                            <td scope="row">
+                                                <i
+                                                    @click="addAnswerModal(qst,qst.id)"
+                                                    class="far fa-plus-square"
+                                                    data-toggle="modal"
+                                                    data-target="#exampleModal"
+                                                    style="color : blue"
+                                                ></i>
+                                                <i
+                                                    @click="editModal(qst)"
+                                                    class="fas fa-edit"
+                                                    style="color: #5DC067; cursor: pointer;"
+                                                ></i>
+                                                <i
+                                                    @click="delteQst(qst.id)"
+                                                    class="far fa-trash-alt"
+                                                    style="color : #E00004"
+                                                ></i>
+                                            </td>
+                                            <td>{{ answer.ans }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -203,6 +209,8 @@ export default {
     data() {
         return {
             datas: {},
+            datasAnswers: {},
+            tempId: "",
 
             qst: new Form({
                 id: "",
@@ -211,10 +219,7 @@ export default {
             ans: new Form({
                 id: "",
                 qst_id: "",
-                ans1: "",
-                ans2: "",
-                ans3: "",
-                ans4: ""
+                ans: "",
             })
         };
     },
@@ -228,10 +233,15 @@ export default {
         addAnswerModal(qst, id) {
             $("#exampleModal").modal("show");
             this.ans.qst_id = id;
+            this.tempId = id;
+            this.getAnswer(id)
         },
 
         getQst() {
             axios.get("/getQst").then(({ data }) => (this.datas = data));
+        },
+        getAnswer(id) {
+            axios.get("/getAnswer/" + id).then(({ data }) => (this.datasAnswers = data));
         },
 
         createQst() {
@@ -316,7 +326,7 @@ export default {
             this.ans
                 .post("/createAnswer/")
                 .then(() => {
-                    this.getQst();
+                    this.getAnswer(this.tempId);
                     Vue.swal({
                         toast: true,
                         position: "top-end",

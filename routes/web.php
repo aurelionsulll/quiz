@@ -23,7 +23,7 @@ Route::get('gqst','QstController@index');
     Route::delete('/delteQst/{id}','QstController@delteQst');
     
     //-------------- G answer --------------
-    Route::get('/getAnswer','AnswerController@getAnswer');
+    Route::get('/getAnswer/{id}','AnswerController@getAnswer');
     Route::post('/createAnswer','AnswerController@createAnswer');
     Route::put('/editAnswer/{id}','AnswerController@editAnswer');
     Route::delete('/delteAnswer/{id}','AnswerController@delteAnswer');

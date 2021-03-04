@@ -2137,6 +2137,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2144,6 +2150,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       datas: {},
+      datasAnswers: {},
+      tempId: "",
       qst: new Form({
         id: "",
         qst: ""
@@ -2151,10 +2159,7 @@ __webpack_require__.r(__webpack_exports__);
       ans: new Form({
         id: "",
         qst_id: "",
-        ans1: "",
-        ans2: "",
-        ans3: "",
-        ans4: ""
+        ans: ""
       })
     };
   },
@@ -2167,6 +2172,8 @@ __webpack_require__.r(__webpack_exports__);
     addAnswerModal: function addAnswerModal(qst, id) {
       $("#exampleModal").modal("show");
       this.ans.qst_id = id;
+      this.tempId = id;
+      this.getAnswer(id);
     },
     getQst: function getQst() {
       var _this = this;
@@ -2176,11 +2183,19 @@ __webpack_require__.r(__webpack_exports__);
         return _this.datas = data;
       });
     },
-    createQst: function createQst() {
+    getAnswer: function getAnswer(id) {
       var _this2 = this;
 
+      axios.get("/getAnswer/" + id).then(function (_ref2) {
+        var data = _ref2.data;
+        return _this2.datasAnswers = data;
+      });
+    },
+    createQst: function createQst() {
+      var _this3 = this;
+
       this.qst.post("/createQst/").then(function () {
-        _this2.getQst();
+        _this3.getQst();
 
         Vue.swal({
           toast: true,
@@ -2199,10 +2214,10 @@ __webpack_require__.r(__webpack_exports__);
       this.qst.reset();
     },
     editQst: function editQst() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.qst.put("/editQst/" + this.qst.id).then(function () {
-        _this3.getQst();
+        _this4.getQst();
 
         $("#editQst").modal("hide");
         Vue.swal({
@@ -2222,7 +2237,7 @@ __webpack_require__.r(__webpack_exports__);
       this.qst.reset();
     },
     delteQst: function delteQst(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       Vue.swal({
         title: "Êtes-vous sûr?",
@@ -2234,17 +2249,17 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: "Annuler"
       }).then(function (result) {
         if (result.value) {
-          _this4.qst["delete"]("/delteQst/" + id);
+          _this5.qst["delete"]("/delteQst/" + id);
 
-          _this4.getQst();
+          _this5.getQst();
         }
       });
     },
     createAnswer: function createAnswer() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.ans.post("/createAnswer/").then(function () {
-        _this5.getQst();
+        _this6.getAnswer(_this6.tempId);
 
         Vue.swal({
           toast: true,
@@ -43265,7 +43280,7 @@ var render = function() {
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                      _vm._v("Rep 1")
+                      _vm._v("Rep ")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -43273,131 +43288,84 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.ans.ans1,
-                          expression: "ans.ans1"
+                          value: _vm.ans.ans,
+                          expression: "ans.ans"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text", "aria-describedby": "emailHelp" },
-                      domProps: { value: _vm.ans.ans1 },
+                      domProps: { value: _vm.ans.ans },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.ans, "ans1", $event.target.value)
+                          _vm.$set(_vm.ans, "ans", $event.target.value)
                         }
                       }
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                      _vm._v("Rep 2")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.ans.ans2,
-                          expression: "ans.ans2"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", "aria-describedby": "emailHelp" },
-                      domProps: { value: _vm.ans.ans2 },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.ans, "ans2", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                      _vm._v("Rep 3")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.ans.ans3,
-                          expression: "ans.ans3"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", "aria-describedby": "emailHelp" },
-                      domProps: { value: _vm.ans.ans3 },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.ans, "ans3", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                      _vm._v("Rep 4")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.ans.ans4,
-                          expression: "ans.ans4"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", "aria-describedby": "emailHelp" },
-                      domProps: { value: _vm.ans.ans4 },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.ans, "ans4", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.ans.qst_id,
-                          expression: "ans.qst_id"
-                        }
-                      ],
-                      attrs: { type: "hidden" },
-                      domProps: { value: _vm.ans.qst_id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.ans, "qst_id", $event.target.value)
-                        }
-                      }
-                    })
+                  _c("div", [
+                    _c("table", { staticClass: "table table-hover" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.datasAnswers, function(answer) {
+                          return _c("tr", { key: answer.id }, [
+                            _c("td", { attrs: { scope: "row" } }, [
+                              _c("i", {
+                                staticClass: "far fa-plus-square",
+                                staticStyle: { color: "blue" },
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#exampleModal"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addAnswerModal(
+                                      _vm.qst,
+                                      _vm.qst.id
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "fas fa-edit",
+                                staticStyle: {
+                                  color: "#5DC067",
+                                  cursor: "pointer"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editModal(_vm.qst)
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "far fa-trash-alt",
+                                staticStyle: { color: "#E00004" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.delteQst(_vm.qst.id)
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(answer.ans))])
+                          ])
+                        }),
+                        0
+                      )
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ])
             ])
           ]
@@ -43430,7 +43398,7 @@ var render = function() {
           [
             _c("div", { staticClass: "modal-dialog" }, [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "form-group" }, [
@@ -43462,7 +43430,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ])
             ])
           ]
@@ -43530,7 +43498,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", {}, [
           _c("table", { staticClass: "table table-hover" }, [
-            _vm._m(4),
+            _vm._m(5),
             _vm._v(" "),
             _c(
               "tbody",
@@ -43611,6 +43579,18 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Answers")])
+      ])
     ])
   },
   function() {
