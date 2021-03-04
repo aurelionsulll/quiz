@@ -23,4 +23,11 @@ class QstController extends Controller
     {
         return Qst::all();
     }
+
+    public function editQst(Request $request, $id)
+    {
+        $qst = Qst::find($id);
+        $qst->qst = $request->qst;
+        $qst->save();
+    }
 }

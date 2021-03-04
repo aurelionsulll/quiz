@@ -17,5 +17,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('gqst','QstController@index');
 
 Route::post('/createQst','QstController@createQst');
+Route::put('/editQst/{id}','QstController@editQst');
 
 Route::get('/getQst','QstController@getQst');

@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <!-- Button trigger modal -->
 
-        <!-- Modal -->
+        <!-- Modal create -->
         <div
             class="modal fade"
             id="exampleModal"
@@ -51,6 +51,57 @@
                 </div>
             </div>
         </div>
+        <!-- Modal edit -->
+        <div
+            class="modal fade"
+            id="editQst"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <form @submit.prevent="editQst()">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Edit qst
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Rep</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    v-model="qst.qst"
+                                    aria-describedby="emailHelp"
+                                />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -93,8 +144,9 @@
                                         style="color : blue"
                                     ></i>
                                     <i
+                                        @click="editModal(qst)"
                                         class="fas fa-edit"
-                                        style="color : #5DC067"
+                                        style="color: #5DC067; cursor: pointer;"
                                     ></i>
                                     <i
                                         class="far fa-trash-alt"
@@ -129,9 +181,15 @@ export default {
     },
 
     methods: {
+        editModal(qst) {
+            this.qst.reset();
+            $("#editQst").modal("show");
+            this.qst.fill(qst);
+        },
+
         createQst() {
             this.qst
-                .post("/createQst/" + this.qst.id)
+                .post("/createQst/")
                 .then(() => {
                     this.getQst();
                     Vue.swal({
@@ -158,6 +216,36 @@ export default {
 
             this.qst.reset();
         },
+
+        // editQst() {
+        //     this.qst
+        //         .post("/editQst/" + this.qst.id)
+        //         .then(() => {
+        //             this.getQst();
+        //             Vue.swal({
+        //                 toast: true,
+        //                 position: "top-end",
+        //                 showConfirmButton: false,
+        //                 timer: 3000,
+        //                 timerProgressBar: true,
+        //                 didOpen: toast => {
+        //                     toast.addEventListener(
+        //                         "mouseenter",
+        //                         Swal.stopTimer
+        //                     );
+        //                     toast.addEventListener(
+        //                         "mouseleave",
+        //                         Swal.resumeTimer
+        //                     );
+        //                 },
+        //                 icon: "success",
+        //                 title: "Successfully updated"
+        //             });
+        //         })
+        //         .catch(() => {});
+
+        //     this.qst.reset();
+        // },
 
         getQst() {
             axios.get("/getQst").then(({ data }) => (this.datas = data));
