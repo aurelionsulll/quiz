@@ -2013,28 +2013,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// const Toast = Vue.Swal.mixin({
-//   toast: true,
-//   position: 'top-end',
-//   showConfirmButton: false,
-//   timer: 3000,
-//   timerProgressBar: true,
-//   didOpen: (toast) => {
-//     toast.addEventListener('mouseenter', Swal.stopTimer)
-//     toast.addEventListener('mouseleave', Swal.resumeTimer)
-//   }
-// })
-// const Toast = Swal.mixin({
-//   toast: true,
-//   position: 'top-end',
-//   showConfirmButton: false,
-//   timer: 3000,
-//   timerProgressBar: true,
-//   didOpen: (toast) => {
-//     toast.addEventListener('mouseenter', Swal.stopTimer)
-//     toast.addEventListener('mouseleave', Swal.resumeTimer)
-//   }
-// });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2057,13 +2076,13 @@ __webpack_require__.r(__webpack_exports__);
 
         Vue.swal({
           toast: true,
-          position: 'top-end',
+          position: "top-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: function didOpen(toast) {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
           icon: "success",
           title: "Successfully updated"
@@ -43102,7 +43121,11 @@ var render = function() {
                   staticClass: "btn btn-primary float-right mb-5",
                   attrs: { type: "submit" }
                 },
-                [_vm._v("Submit")]
+                [
+                  _vm._v(
+                    "\n                        Submit\n                    "
+                  )
+                ]
               )
             ]
           )
@@ -43155,7 +43178,11 @@ var staticRenderFns = [
                   staticClass: "modal-title",
                   attrs: { id: "exampleModalLabel" }
                 },
-                [_vm._v("Add new Rep")]
+                [
+                  _vm._v(
+                    "\n                        Add new Rep\n                    "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -43200,13 +43227,21 @@ var staticRenderFns = [
                   staticClass: "btn btn-secondary",
                   attrs: { type: "button", "data-dismiss": "modal" }
                 },
-                [_vm._v("Close")]
+                [
+                  _vm._v(
+                    "\n                        Close\n                    "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
                 "button",
                 { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Save changes")]
+                [
+                  _vm._v(
+                    "\n                        Save changes\n                    "
+                  )
+                ]
               )
             ])
           ])
@@ -43232,12 +43267,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("th", { attrs: { scope: "row" } }, [
       _c("i", {
-        staticClass: "fas fa-anchor",
+        staticClass: "far fa-plus-square",
+        staticStyle: { color: "blue" },
         attrs: {
           type: "button",
           "data-toggle": "modal",
           "data-target": "#exampleModal"
         }
+      }),
+      _vm._v(" "),
+      _c("i", {
+        staticClass: "fas fa-edit",
+        staticStyle: { color: "#5DC067" }
+      }),
+      _vm._v(" "),
+      _c("i", {
+        staticClass: "far fa-trash-alt",
+        staticStyle: { color: "#E00004" }
       })
     ])
   }

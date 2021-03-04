@@ -1,43 +1,63 @@
 <template>
     <div class="container mt-5">
-<!-- Button trigger modal -->
+        <!-- Button trigger modal -->
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add new Rep</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Rep</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <!-- Modal -->
+        <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Add new Rep
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Rep</label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="">
                     <form @submit.prevent="createQst()">
                         <div class="form-group">
-                            <label for="exampleInputEmail1"
-                                >Qst</label
-                            >
+                            <label for="exampleInputEmail1">Qst</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -45,7 +65,12 @@
                                 v-model="qst.qst"
                             />
                         </div>
-                        <button type="submit" class="btn btn-primary float-right mb-5">Submit</button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary float-right mb-5"
+                        >
+                            Submit
+                        </button>
                     </form>
                 </div>
 
@@ -59,8 +84,24 @@
                         </thead>
                         <tbody>
                             <tr v-for="qst in datas" :key="qst.id">
-                                <th scope="row"><i type="button" class="fas fa-anchor" data-toggle="modal" data-target="#exampleModal"></i></th>
-                                <td>{{qst.qst}}</td>
+                                <th scope="row">
+                                    <i
+                                        type="button"
+                                        class="far fa-plus-square"
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                        style="color : blue"
+                                    ></i>
+                                    <i
+                                        class="fas fa-edit"
+                                        style="color : #5DC067"
+                                    ></i>
+                                    <i
+                                        class="far fa-trash-alt"
+                                        style="color : #E00004"
+                                    ></i>
+                                </th>
+                                <td>{{ qst.qst }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -71,79 +112,56 @@
 </template>
 
 <script>
-
-
-// const Toast = Vue.Swal.mixin({
-//   toast: true,
-//   position: 'top-end',
-//   showConfirmButton: false,
-//   timer: 3000,
-//   timerProgressBar: true,
-//   didOpen: (toast) => {
-//     toast.addEventListener('mouseenter', Swal.stopTimer)
-//     toast.addEventListener('mouseleave', Swal.resumeTimer)
-//   }
-// })
-
-// const Toast = Swal.mixin({
-//   toast: true,
-//   position: 'top-end',
-//   showConfirmButton: false,
-//   timer: 3000,
-//   timerProgressBar: true,
-//   didOpen: (toast) => {
-//     toast.addEventListener('mouseenter', Swal.stopTimer)
-//     toast.addEventListener('mouseleave', Swal.resumeTimer)
-//   }
-// });
-
 export default {
     mounted() {
         this.getQst();
     },
 
     data() {
-        
         return {
-            datas : {},
+            datas: {},
 
-            qst: new Form ({
+            qst: new Form({
                 id: "",
                 qst: ""
             })
-        }
+        };
     },
 
     methods: {
         createQst() {
-                this.qst
-                    .post("/createQst/" + this.qst.id)
-                    .then(() => {
-                        this.getQst()
+            this.qst
+                .post("/createQst/" + this.qst.id)
+                .then(() => {
+                    this.getQst();
                     Vue.swal({
                         toast: true,
-                        position: 'top-end',
+                        position: "top-end",
                         showConfirmButton: false,
                         timer: 3000,
                         timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        didOpen: toast => {
+                            toast.addEventListener(
+                                "mouseenter",
+                                Swal.stopTimer
+                            );
+                            toast.addEventListener(
+                                "mouseleave",
+                                Swal.resumeTimer
+                            );
                         },
                         icon: "success",
                         title: "Successfully updated"
-                        });
-
-                    })
-                    .catch(() => {
                     });
+                })
+                .catch(() => {});
 
-                    this.qst.reset()
-            },
+            this.qst.reset();
+        },
 
         getQst() {
             axios.get("/getQst").then(({ data }) => (this.datas = data));
         }
-    },
+    }
 };
 </script>
