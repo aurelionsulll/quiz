@@ -2107,6 +2107,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2117,6 +2140,14 @@ __webpack_require__.r(__webpack_exports__);
       qst: new Form({
         id: "",
         qst: ""
+      }),
+      ans: new Form({
+        id: "",
+        qstid: "",
+        qst1: "",
+        qst2: "",
+        qst3: "",
+        qst4: ""
       })
     };
   },
@@ -2125,6 +2156,10 @@ __webpack_require__.r(__webpack_exports__);
       this.qst.reset();
       $("#editQst").modal("show");
       this.qst.fill(qst);
+    },
+    addAnswerModal: function addAnswerModal(qst, id) {
+      $("#exampleModal").modal("show");
+      this.ans.qstid = id;
     },
     createQst: function createQst() {
       var _this = this;
@@ -43309,9 +43344,13 @@ var render = function() {
                       staticClass: "far fa-plus-square",
                       staticStyle: { color: "blue" },
                       attrs: {
-                        type: "button",
                         "data-toggle": "modal",
                         "data-target": "#exampleModal"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.addAnswerModal(qst, qst.id)
+                        }
                       }
                     }),
                     _vm._v(" "),
@@ -43401,16 +43440,45 @@ var staticRenderFns = [
             _c("div", { staticClass: "modal-body" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                  _vm._v("Rep")
+                  _vm._v("Rep 1")
                 ]),
                 _vm._v(" "),
                 _c("input", {
                   staticClass: "form-control",
-                  attrs: {
-                    type: "email",
-                    id: "exampleInputEmail1",
-                    "aria-describedby": "emailHelp"
-                  }
+                  attrs: { type: "text", "aria-describedby": "emailHelp" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                  _vm._v("Rep 2")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "text", "aria-describedby": "emailHelp" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                  _vm._v("Rep 3")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "text", "aria-describedby": "emailHelp" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                  _vm._v("Rep 4")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "text", "aria-describedby": "emailHelp" }
                 })
               ])
             ]),

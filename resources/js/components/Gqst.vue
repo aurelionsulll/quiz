@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <!-- Button trigger modal -->
 
-        <!-- Modal create -->
+        <!-- Modal Answer -->
         <div
             class="modal fade"
             id="exampleModal"
@@ -27,11 +27,34 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Rep</label>
+                            <label for="exampleInputEmail1">Rep 1</label>
                             <input
-                                type="email"
+                                type="text"
                                 class="form-control"
-                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Rep 2</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                aria-describedby="emailHelp"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Rep 3</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                aria-describedby="emailHelp"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Rep 4</label>
+                            <input
+                                type="text"
+                                class="form-control"
                                 aria-describedby="emailHelp"
                             />
                         </div>
@@ -137,7 +160,7 @@
                             <tr v-for="qst in datas" :key="qst.id">
                                 <th scope="row">
                                     <i
-                                        type="button"
+                                        @click="addAnswerModal(qst,qst.id)"
                                         class="far fa-plus-square"
                                         data-toggle="modal"
                                         data-target="#exampleModal"
@@ -177,6 +200,14 @@ export default {
             qst: new Form({
                 id: "",
                 qst: ""
+            }),
+            ans: new Form({
+                id: "",
+                qstid: "",
+                qst1: "",
+                qst2: "",
+                qst3: "",
+                qst4: ""
             })
         };
     },
@@ -186,6 +217,10 @@ export default {
             this.qst.reset();
             $("#editQst").modal("show");
             this.qst.fill(qst);
+        },
+        addAnswerModal(qst,id) {
+            $("#exampleModal").modal("show");
+            this.ans.qstid = id
         },
 
         createQst() {
@@ -260,11 +295,10 @@ export default {
                 cancelButtonText: "Annuler"
             }).then(result => {
                 if (result.value) {
-                    this.qst.delete("/delteQst/" +id);
+                    this.qst.delete("/delteQst/" + id);
                     this.getQst();
                 }
             });
-            
         },
 
         getQst() {
