@@ -2161,11 +2161,19 @@ __webpack_require__.r(__webpack_exports__);
       $("#exampleModal").modal("show");
       this.ans.qstid = id;
     },
-    createQst: function createQst() {
+    getQst: function getQst() {
       var _this = this;
 
+      axios.get("/getQst").then(function (_ref) {
+        var data = _ref.data;
+        return _this.datas = data;
+      });
+    },
+    createQst: function createQst() {
+      var _this2 = this;
+
       this.qst.post("/createQst/").then(function () {
-        _this.getQst();
+        _this2.getQst();
 
         Vue.swal({
           toast: true,
@@ -2184,10 +2192,10 @@ __webpack_require__.r(__webpack_exports__);
       this.qst.reset();
     },
     editQst: function editQst() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.qst.put("/editQst/" + this.qst.id).then(function () {
-        _this2.getQst();
+        _this3.getQst();
 
         $("#editQst").modal("hide");
         Vue.swal({
@@ -2207,7 +2215,7 @@ __webpack_require__.r(__webpack_exports__);
       this.qst.reset();
     },
     delteQst: function delteQst(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       Vue.swal({
         title: "Êtes-vous sûr?",
@@ -2219,19 +2227,33 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: "Annuler"
       }).then(function (result) {
         if (result.value) {
-          _this3.qst["delete"]("/delteQst/" + id);
+          _this4.qst["delete"]("/delteQst/" + id);
 
-          _this3.getQst();
+          _this4.getQst();
         }
       });
     },
-    getQst: function getQst() {
-      var _this4 = this;
+    createAnswer: function createAnswer() {
+      var _this5 = this;
 
-      axios.get("/getQst").then(function (_ref) {
-        var data = _ref.data;
-        return _this4.datas = data;
-      });
+      this.qst.post("/createAnswer/").then(function () {
+        _this5.getQst();
+
+        Vue.swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+          icon: "success",
+          title: "Successfully updated"
+        });
+      })["catch"](function () {});
+      this.ans.reset();
     }
   }
 });

@@ -213,6 +213,7 @@ export default {
     },
 
     methods: {
+
         editModal(qst) {
             this.qst.reset();
             $("#editQst").modal("show");
@@ -221,6 +222,10 @@ export default {
         addAnswerModal(qst,id) {
             $("#exampleModal").modal("show");
             this.ans.qstid = id
+        },
+
+        getQst() {
+            axios.get("/getQst").then(({ data }) => (this.datas = data));
         },
 
         createQst() {
@@ -301,9 +306,38 @@ export default {
             });
         },
 
-        getQst() {
-            axios.get("/getQst").then(({ data }) => (this.datas = data));
-        }
+        
+
+        createAnswer() {
+            this.qst
+                .post("/createAnswer/")
+                .then(() => {
+                    this.getQst();
+                    Vue.swal({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: toast => {
+                            toast.addEventListener(
+                                "mouseenter",
+                                Swal.stopTimer
+                            );
+                            toast.addEventListener(
+                                "mouseleave",
+                                Swal.resumeTimer
+                            );
+                        },
+                        icon: "success",
+                        title: "Successfully updated"
+                    });
+                })
+                .catch(() => {});
+
+            this.ans.reset();
+        },
+
     }
 };
 </script>

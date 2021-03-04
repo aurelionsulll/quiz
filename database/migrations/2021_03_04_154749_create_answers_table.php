@@ -17,10 +17,10 @@ class CreateAnswersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('qst_id');
             $table->foreign('qst_id')->references('id')->on('qsts');
-            $table->string('qst1');
-            $table->string('qst2');
-            $table->string('qst3');
-            $table->string('qst4');
+            $table->string('ans1');
+            $table->string('ans2');
+            $table->string('ans3');
+            $table->string('ans4');
             $table->timestamps();
         });
     }
