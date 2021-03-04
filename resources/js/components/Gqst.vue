@@ -62,7 +62,16 @@
                                                 ></i>
                                             </td>
                                             <td>
-                                                {{ answer.ans }}
+                                                <input
+                                                    v-model="answer.ans"
+                                                    @input="e => ans.ans = e.target.value"
+                                                    type="text"
+                                                    class="form-control"
+                                                    aria-describedby="emailHelp"
+                                                />
+
+                                                <!-- {{ answer.ans }} -->
+                                                
                                             </td>
                                         </tr>
                                     </tbody>
@@ -349,12 +358,12 @@ export default {
                 })
                 .catch(() => {});
 
-            this.ans.reset();
+            this.ans.ans= "";
         },
 
-        editAnswer() {
+        editAnswer(id) {
             this.ans
-                .put("/editAnswer/" + this.ans.id)
+                .put("/editAnswer/" + id)
                 .then(() => {
                     // this.getAnswer();
                     Vue.swal({

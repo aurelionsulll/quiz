@@ -2141,6 +2141,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2273,10 +2282,10 @@ __webpack_require__.r(__webpack_exports__);
           title: "Successfully updated"
         });
       })["catch"](function () {});
-      this.ans.reset();
+      this.ans.ans = "";
     },
-    editAnswer: function editAnswer() {
-      this.ans.put("/editAnswer/" + this.ans.id).then(function () {
+    editAnswer: function editAnswer(id) {
+      this.ans.put("/editAnswer/" + id).then(function () {
         // this.getAnswer();
         Vue.swal({
           toast: true,
@@ -43375,11 +43384,39 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(answer.ans) +
-                                  "\n                                        "
-                              )
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: answer.ans,
+                                    expression: "answer.ans"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  "aria-describedby": "emailHelp"
+                                },
+                                domProps: { value: answer.ans },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        answer,
+                                        "ans",
+                                        $event.target.value
+                                      )
+                                    },
+                                    function(e) {
+                                      return (_vm.ans.ans = e.target.value)
+                                    }
+                                  ]
+                                }
+                              })
                             ])
                           ])
                         }),

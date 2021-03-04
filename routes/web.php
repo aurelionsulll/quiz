@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 Route::get('/mainn','QuizController@index');
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
