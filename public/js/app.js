@@ -2147,40 +2147,35 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {});
       this.qst.reset();
     },
-    // editQst() {
-    //     this.qst
-    //         .post("/editQst/" + this.qst.id)
-    //         .then(() => {
-    //             this.getQst();
-    //             Vue.swal({
-    //                 toast: true,
-    //                 position: "top-end",
-    //                 showConfirmButton: false,
-    //                 timer: 3000,
-    //                 timerProgressBar: true,
-    //                 didOpen: toast => {
-    //                     toast.addEventListener(
-    //                         "mouseenter",
-    //                         Swal.stopTimer
-    //                     );
-    //                     toast.addEventListener(
-    //                         "mouseleave",
-    //                         Swal.resumeTimer
-    //                     );
-    //                 },
-    //                 icon: "success",
-    //                 title: "Successfully updated"
-    //             });
-    //         })
-    //         .catch(() => {});
-    //     this.qst.reset();
-    // },
-    getQst: function getQst() {
+    editQst: function editQst() {
       var _this2 = this;
+
+      this.qst.put("/editQst/" + this.qst.id).then(function () {
+        _this2.getQst();
+
+        $("#editQst").modal("hide");
+        Vue.swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+          icon: "success",
+          title: "Successfully updated"
+        });
+      })["catch"](function () {});
+      this.qst.reset();
+    },
+    getQst: function getQst() {
+      var _this3 = this;
 
       axios.get("/getQst").then(function (_ref) {
         var data = _ref.data;
-        return _this2.datas = data;
+        return _this3.datas = data;
       });
     }
   }

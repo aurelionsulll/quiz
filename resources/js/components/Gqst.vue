@@ -217,35 +217,36 @@ export default {
             this.qst.reset();
         },
 
-        // editQst() {
-        //     this.qst
-        //         .post("/editQst/" + this.qst.id)
-        //         .then(() => {
-        //             this.getQst();
-        //             Vue.swal({
-        //                 toast: true,
-        //                 position: "top-end",
-        //                 showConfirmButton: false,
-        //                 timer: 3000,
-        //                 timerProgressBar: true,
-        //                 didOpen: toast => {
-        //                     toast.addEventListener(
-        //                         "mouseenter",
-        //                         Swal.stopTimer
-        //                     );
-        //                     toast.addEventListener(
-        //                         "mouseleave",
-        //                         Swal.resumeTimer
-        //                     );
-        //                 },
-        //                 icon: "success",
-        //                 title: "Successfully updated"
-        //             });
-        //         })
-        //         .catch(() => {});
+        editQst() {
+            this.qst
+                .put("/editQst/" + this.qst.id)
+                .then(() => {
+                    this.getQst();
+                    $("#editQst").modal("hide");
+                    Vue.swal({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: toast => {
+                            toast.addEventListener(
+                                "mouseenter",
+                                Swal.stopTimer
+                            );
+                            toast.addEventListener(
+                                "mouseleave",
+                                Swal.resumeTimer
+                            );
+                        },
+                        icon: "success",
+                        title: "Successfully updated"
+                    });
+                })
+                .catch(() => {});
 
-        //     this.qst.reset();
-        // },
+            this.qst.reset();
+        },
 
         getQst() {
             axios.get("/getQst").then(({ data }) => (this.datas = data));
