@@ -2144,10 +2144,10 @@ __webpack_require__.r(__webpack_exports__);
       ans: new Form({
         id: "",
         qstid: "",
-        qst1: "",
-        qst2: "",
-        qst3: "",
-        qst4: ""
+        ans1: "",
+        ans2: "",
+        ans3: "",
+        ans4: ""
       })
     };
   },

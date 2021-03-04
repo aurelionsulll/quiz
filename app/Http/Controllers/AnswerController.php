@@ -11,10 +11,10 @@ class AnswerController extends Controller
     {
         $qst = new Answer();
         $qst->qst_id = $request->qst_id;
-        $qst->qst1 = $request->qst1;
-        $qst->qst2 = $request->qst2;
-        $qst->qst2 = $request->qst3;
-        $qst->qst4 = $request->qst4;
+        $qst->ans1 = $request->ans1;
+        $qst->ans2 = $request->ans2;
+        $qst->ans2 = $request->ans3;
+        $qst->ans4 = $request->ans4;
         $qst->save();
     }
 }
