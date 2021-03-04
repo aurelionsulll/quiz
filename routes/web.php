@@ -18,5 +18,6 @@ Route::get('gqst','QstController@index');
 
 Route::post('/createQst','QstController@createQst');
 Route::put('/editQst/{id}','QstController@editQst');
+Route::delete('/delteQst/{id}','QstController@delteQst');
 
 Route::get('/getQst','QstController@getQst');

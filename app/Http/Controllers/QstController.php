@@ -30,4 +30,10 @@ class QstController extends Controller
         $qst->qst = $request->qst;
         $qst->save();
     }
+
+    public function delteQst(Request $request, $id)
+    {
+        $qst = Qst::find($id);
+        $qst->delte();
+    }
 }
