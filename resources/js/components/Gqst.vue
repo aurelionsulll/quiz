@@ -149,6 +149,7 @@
                                         style="color: #5DC067; cursor: pointer;"
                                     ></i>
                                     <i
+                                        @click="delteQst(qst.id)"
                                         class="far fa-trash-alt"
                                         style="color : #E00004"
                                     ></i>
@@ -246,6 +247,24 @@ export default {
                 .catch(() => {});
 
             this.qst.reset();
+        },
+
+        delteQst(id) {
+            Vue.swal({
+                title: "Êtes-vous sûr?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Oui",
+                cancelButtonText: "Annuler"
+            }).then(result => {
+                if (result.value) {
+                    this.qst.delete("/delteQst/" +id);
+                    this.getQst();
+                }
+            });
+            
         },
 
         getQst() {

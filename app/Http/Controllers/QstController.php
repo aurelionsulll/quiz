@@ -34,6 +34,6 @@ class QstController extends Controller
     public function delteQst(Request $request, $id)
     {
         $qst = Qst::find($id);
-        $qst->delte();
+        $qst->delete();
     }
 }

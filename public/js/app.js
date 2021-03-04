@@ -2106,6 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2170,12 +2171,31 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {});
       this.qst.reset();
     },
-    getQst: function getQst() {
+    delteQst: function delteQst(id) {
       var _this3 = this;
+
+      Vue.swal({
+        title: "Êtes-vous sûr?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui",
+        cancelButtonText: "Annuler"
+      }).then(function (result) {
+        if (result.value) {
+          _this3.qst["delete"]("/delteQst/" + id);
+
+          _this3.getQst();
+        }
+      });
+    },
+    getQst: function getQst() {
+      var _this4 = this;
 
       axios.get("/getQst").then(function (_ref) {
         var data = _ref.data;
-        return _this3.datas = data;
+        return _this4.datas = data;
       });
     }
   }
@@ -43307,7 +43327,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("i", {
                       staticClass: "far fa-trash-alt",
-                      staticStyle: { color: "#E00004" }
+                      staticStyle: { color: "#E00004" },
+                      on: {
+                        click: function($event) {
+                          return _vm.delteQst(qst.id)
+                        }
+                      }
                     })
                   ]),
                   _vm._v(" "),
