@@ -10,69 +10,76 @@
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
         >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            Add new Rep
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Rep 1</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                aria-describedby="emailHelp"
-                            />
+            <form @submit.prevent="createAnswer()">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Add new Rep
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Rep 2</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                aria-describedby="emailHelp"
-                            />
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Rep 1</label>
+                                <input
+                                    v-model="ans.ans1"
+                                    type="text"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Rep 2</label>
+                                <input
+                                    v-model="ans.ans2"
+                                    type="text"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Rep 3</label>
+                                <input
+                                    v-model="ans.ans3"
+                                    type="text"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Rep 4</label>
+                                <input
+                                    v-model="ans.ans4"
+                                    type="text"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                                />
+                                <input type="hidden" v-model="ans.qst_id">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Rep 3</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                aria-describedby="emailHelp"
-                            />
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Save changes
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Rep 4</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                aria-describedby="emailHelp"
-                            />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal"
-                        >
-                            Close
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                            Save changes
-                        </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <!-- Modal edit -->
         <div
@@ -160,7 +167,7 @@
                             <tr v-for="qst in datas" :key="qst.id">
                                 <th scope="row">
                                     <i
-                                        @click="addAnswerModal(qst,qst.id)"
+                                        @click="addAnswerModal(qst, qst.id)"
                                         class="far fa-plus-square"
                                         data-toggle="modal"
                                         data-target="#exampleModal"
@@ -203,7 +210,7 @@ export default {
             }),
             ans: new Form({
                 id: "",
-                qstid: "",
+                qst_id: "",
                 ans1: "",
                 ans2: "",
                 ans3: "",
@@ -213,15 +220,14 @@ export default {
     },
 
     methods: {
-
         editModal(qst) {
             this.qst.reset();
             $("#editQst").modal("show");
             this.qst.fill(qst);
         },
-        addAnswerModal(qst,id) {
+        addAnswerModal(qst, id) {
             $("#exampleModal").modal("show");
-            this.ans.qstid = id
+            this.ans.qst_id = id;
         },
 
         getQst() {
@@ -306,10 +312,8 @@ export default {
             });
         },
 
-        
-
         createAnswer() {
-            this.qst
+            this.ans
                 .post("/createAnswer/")
                 .then(() => {
                     this.getQst();
@@ -336,8 +340,7 @@ export default {
                 .catch(() => {});
 
             this.ans.reset();
-        },
-
+        }
     }
 };
 </script>
