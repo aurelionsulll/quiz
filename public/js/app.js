@@ -56164,12 +56164,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["HasError"].name, vform__WEBPAC
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"]);
 
 
-Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"]); // app.use(VueSweetalert2);
-// import Swal from 'sweetalert2'
-// import 'sweetalert2/src/sweetalert2.scss'
-// import Swal from 'sweetalert2'
-// const Swal = require('sweetalert2')
-
+Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"]);
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]); //Admin
 
 Vue.component('gqst-component', __webpack_require__(/*! ./components/Gqst.vue */ "./resources/js/components/Gqst.vue")["default"]);

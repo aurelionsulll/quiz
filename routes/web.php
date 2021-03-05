@@ -28,4 +28,5 @@ Route::get('gqst','QstController@index');
     Route::put('/editAnswer/{id}','AnswerController@editAnswer');
     Route::delete('/deleteAnswer/{id}','AnswerController@deleteAnswer');
 
-
+//-------------- User --------------
+Route::get('gtest','TesttController@gtest');
