@@ -29,6 +29,7 @@ class QstController extends Controller
     {
         $qst = Qst::find($id);
         $qst->qst = $request->qst;
+        $qst->multi = $request->multi;
         $qst->save();
     }
 
