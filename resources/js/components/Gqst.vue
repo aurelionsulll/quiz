@@ -27,16 +27,24 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Rep </label>
-                                    <input
-                                        v-model="ans.ans"
-                                        type="text"
-                                        class="form-control"
-                                        aria-describedby="emailHelp"
-                                    />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Rep </label>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input
+                                            v-model="ans.ans"
+                                            type="text"
+                                            class="form-control"
+                                            aria-describedby="emailHelp"
+                                        />
+                                    </div>
+                                    <div class="col-md-4" v-show="editAnswerBtn">
+                                        <button class="btn btn-success" @click="editAnswer(tempAnswerId)">
+                                            Edit
+                                        </button>
+                                    </div>
                                 </div>
+                            </div>
                             <div>
                                 <table class="table table-hover">
                                     <thead>
@@ -53,7 +61,7 @@
                                             <td scope="row">
                                                 <i
                                                     @click="
-                                                        editAnswer(answer.id)
+                                                        activateEditAnswer(answer,answer.id)
                                                     "
                                                     class="fas fa-edit"
                                                     style="color: #5DC067; cursor: pointer;"
@@ -67,19 +75,14 @@
                                                 ></i>
                                             </td>
                                             <td>
-                                                <input
-                                                    v-model="answer.ans"
-                                                    @input="
-                                                        e =>
-                                                            (ans.ans =
-                                                                e.target.value)
+                                                <span
+                                                    @click="
+                                                        activateEditAnswer(
+                                                            answer
+                                                        )
                                                     "
-                                                    type="text"
-                                                    class="form-control"
-                                                    aria-describedby="emailHelp"
-                                                />
-
-                                                <!-- {{ answer.ans }} -->
+                                                    >{{ answer.ans }}</span
+                                                >
                                             </td>
                                         </tr>
                                     </tbody>
@@ -137,8 +140,17 @@
                                 />
                             </div>
                             <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="qst.multi">
-                                <label class="form-check-label" for="exampleCheck1">multiple answers</label>
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="exampleCheck1"
+                                    v-model="qst.multi"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="exampleCheck1"
+                                    >multiple answers</label
+                                >
                             </div>
                         </div>
 
@@ -231,6 +243,8 @@ export default {
             datas: {},
             datasAnswers: {},
             tempId: "",
+            editAnswerBtn: false,
+            tempAnswerId: "",
 
             qst: new Form({
                 id: "",
@@ -261,7 +275,7 @@ export default {
         getQst() {
             axios.get("/getQst").then(({ data }) => (this.datas = data));
         },
-        
+
         getAnswer(id) {
             axios
                 .get("/getAnswer/" + id)
@@ -376,6 +390,12 @@ export default {
             this.ans.ans = "";
         },
 
+        activateEditAnswer(answer,answerId) {
+            this.editAnswerBtn = true;
+            this.ans.fill(answer);
+            this.tempAnswerId = answerId
+        },
+
         editAnswer(id) {
             this.ans
                 .put("/editAnswer/" + id)
@@ -402,6 +422,8 @@ export default {
                     });
                 })
                 .catch(() => {});
+            this.ans.ans = "";
+            this.editAnswerBtn = false;
         },
 
         delteAnswer(id) {

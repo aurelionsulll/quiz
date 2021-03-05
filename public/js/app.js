@@ -2163,6 +2163,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2172,6 +2184,8 @@ __webpack_require__.r(__webpack_exports__);
       datas: {},
       datasAnswers: {},
       tempId: "",
+      editAnswerBtn: false,
+      tempAnswerId: "",
       qst: new Form({
         id: "",
         qst: "",
@@ -2298,6 +2312,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {});
       this.ans.ans = "";
     },
+    activateEditAnswer: function activateEditAnswer(answer, answerId) {
+      this.editAnswerBtn = true;
+      this.ans.fill(answer);
+      this.tempAnswerId = answerId;
+    },
     editAnswer: function editAnswer(id) {
       var _this7 = this;
 
@@ -2318,6 +2337,8 @@ __webpack_require__.r(__webpack_exports__);
           title: "Successfully updated"
         });
       })["catch"](function () {});
+      this.ans.ans = "";
+      this.editAnswerBtn = false;
     },
     delteAnswer: function delteAnswer(id) {
       var _this8 = this;
@@ -43393,27 +43414,67 @@ var render = function() {
                       _vm._v("Rep ")
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.ans.ans,
-                          expression: "ans.ans"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", "aria-describedby": "emailHelp" },
-                      domProps: { value: _vm.ans.ans },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-8" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.ans.ans,
+                              expression: "ans.ans"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            "aria-describedby": "emailHelp"
+                          },
+                          domProps: { value: _vm.ans.ans },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.ans, "ans", $event.target.value)
+                            }
                           }
-                          _vm.$set(_vm.ans, "ans", $event.target.value)
-                        }
-                      }
-                    })
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.editAnswerBtn,
+                              expression: "editAnswerBtn"
+                            }
+                          ],
+                          staticClass: "col-md-4"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              on: {
+                                click: function($event) {
+                                  return _vm.editAnswer(_vm.tempAnswerId)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Edit\n                                    "
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", [
@@ -43433,7 +43494,10 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    return _vm.editAnswer(answer.id)
+                                    return _vm.activateEditAnswer(
+                                      answer,
+                                      answer.id
+                                    )
                                   }
                                 }
                               }),
@@ -43450,39 +43514,17 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: answer.ans,
-                                    expression: "answer.ans"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  "aria-describedby": "emailHelp"
-                                },
-                                domProps: { value: answer.ans },
-                                on: {
-                                  input: [
-                                    function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        answer,
-                                        "ans",
-                                        $event.target.value
-                                      )
-                                    },
-                                    function(e) {
-                                      return (_vm.ans.ans = e.target.value)
+                              _c(
+                                "span",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateEditAnswer(answer)
                                     }
-                                  ]
-                                }
-                              })
+                                  }
+                                },
+                                [_vm._v(_vm._s(answer.ans))]
+                              )
                             ])
                           ])
                         }),
