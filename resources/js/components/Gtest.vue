@@ -27,13 +27,18 @@
                             <div>
                                 <span v-for="answer in datasAnswers" :key="answer.id">
                                     <span @click="getAnswerId(answer.id)">
-                                        <input type="radio" :id="answer.id" name="gender" :value="answer.ans" >
+                                        <input type="radio" :id="answer.id" name="gender" :value="answer.ans" :disabled="inputDisbled">
                                         <label :for="answer.id">{{ answer.ans }}</label><br>
                                     </span>
+                                    <span style="color : red">
+                                        <span v-for="test in datasTest" :key="test.id">
+                                            <span v-if="test.done && test.answer_id == answer.id  ? inputDisbled = true : inputDisbled = false ">
+                                                done
+                                            </span>
+                                        </span>
+                                    </span>
                                 </span>
-                                <span style="color : red">
-                                            done
-                                </span>
+                                
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -81,13 +86,16 @@
 export default {
     mounted() {
         this.getQst();
+        this.getTest();
     },
 
     data() {
         return {
             datas: {},
             datasAnswers: {},
+            datasTest: {},
             qstID: "",
+            inputDisbled: false,
             qst: new Form({
                 id: "",
                 qst: "",
@@ -116,6 +124,11 @@ export default {
             axios
                 .get("/getAnswer/" + id)
                 .then(({ data }) => (this.datasAnswers = data));
+        },
+        getTest() {
+            axios
+                .get("/getTest/")
+                .then(({ data }) => (this.datasTest = data));
         },
         getAnswerId (id) {
             this.test.answer_id = id
@@ -152,6 +165,9 @@ export default {
                     });
                 })
                 .catch(() => {});
+        },
+        ifDone() {
+            
         }
     }
 };

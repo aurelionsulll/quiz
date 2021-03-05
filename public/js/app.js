@@ -2452,15 +2452,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
+    this.getTest();
   },
   data: function data() {
     return {
       datas: {},
       datasAnswers: {},
+      datasTest: {},
       qstID: "",
+      inputDisbled: false,
       qst: new Form({
         id: "",
         qst: "",
@@ -2496,6 +2504,14 @@ __webpack_require__.r(__webpack_exports__);
         return _this2.datasAnswers = data;
       });
     },
+    getTest: function getTest() {
+      var _this3 = this;
+
+      axios.get("/getTest/").then(function (_ref3) {
+        var data = _ref3.data;
+        return _this3.datasTest = data;
+      });
+    },
     getAnswerId: function getAnswerId(id) {
       this.test.answer_id = id;
     },
@@ -2522,7 +2538,8 @@ __webpack_require__.r(__webpack_exports__);
           title: "Successfully updated"
         });
       })["catch"](function () {});
-    }
+    },
+    ifDone: function ifDone() {}
   }
 });
 
@@ -44131,44 +44148,56 @@ var render = function() {
                 _c("div", { staticClass: "modal-body" }, [
                   _c(
                     "div",
-                    [
-                      _vm._l(_vm.datasAnswers, function(answer) {
-                        return _c("span", { key: answer.id }, [
-                          _c(
-                            "span",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.getAnswerId(answer.id)
-                                }
+                    _vm._l(_vm.datasAnswers, function(answer) {
+                      return _c("span", { key: answer.id }, [
+                        _c(
+                          "span",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.getAnswerId(answer.id)
                               }
-                            },
-                            [
-                              _c("input", {
-                                attrs: {
-                                  type: "radio",
-                                  id: answer.id,
-                                  name: "gender"
-                                },
-                                domProps: { value: answer.ans }
-                              }),
-                              _vm._v(" "),
-                              _c("label", { attrs: { for: answer.id } }, [
-                                _vm._v(_vm._s(answer.ans))
-                              ]),
-                              _c("br")
-                            ]
-                          )
-                        ])
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticStyle: { color: "red" } }, [
-                        _vm._v(
-                          "\n                                        done\n                            "
+                            }
+                          },
+                          [
+                            _c("input", {
+                              attrs: {
+                                type: "radio",
+                                id: answer.id,
+                                name: "gender",
+                                disabled: _vm.inputDisbled
+                              },
+                              domProps: { value: answer.ans }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: answer.id } }, [
+                              _vm._v(_vm._s(answer.ans))
+                            ]),
+                            _c("br")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticStyle: { color: "red" } },
+                          _vm._l(_vm.datasTest, function(test) {
+                            return _c("span", { key: test.id }, [
+                              (test.done && test.answer_id == answer.id
+                              ? (_vm.inputDisbled = true)
+                              : (_vm.inputDisbled = false))
+                                ? _c("span", [
+                                    _vm._v(
+                                      "\n                                            done\n                                        "
+                                    )
+                                  ])
+                                : _vm._e()
+                            ])
+                          }),
+                          0
                         )
                       ])
-                    ],
-                    2
+                    }),
+                    0
                   )
                 ]),
                 _vm._v(" "),

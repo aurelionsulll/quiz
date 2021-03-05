@@ -21,4 +21,8 @@ class TesttController extends Controller
         $test->done = 1;
         $test->save();
     }
+    public function getTest() 
+    {
+        return Testt::all();
+    }
 }
