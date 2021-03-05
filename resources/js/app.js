@@ -14,6 +14,8 @@ Vue.use(VueSweetalert2);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 //Admin
 Vue.component('gqst-component', require('./components/Gqst.vue').default);
+Vue.component('gtest-component', require('./components/Gtest.vue').default);
+
 
 
 

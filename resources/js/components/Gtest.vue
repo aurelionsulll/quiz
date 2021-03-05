@@ -1,0 +1,158 @@
+<template>
+    <div class="container mt-5">
+        <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <form @submit.prevent="sendAnswer()">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Add new Rep
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <span v-for="answer in datasAnswers" :key="answer.id">
+                                    <span @click="getAnswerId(answer.id)">
+                                        <input type="radio" :id="answer.id" name="gender" :value="answer.ans" >
+                                        <label :for="answer.id">{{ answer.ans }}</label><br>
+                                    </span>
+                                </span>
+                                <span style="color : red">
+                                            done
+                                </span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Qst</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="qst in datas" :key="qst.id">
+                                <td>{{ qst.qst }}</td>
+                                <th scope="row">
+                                    <i
+                                        @click="addAnswerModal(qst, qst.id)"
+                                        class="far fa-plus-square"
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                        style="color : blue"
+                                    ></i>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+    </div>
+</template>
+
+<script>
+export default {
+    mounted() {
+        this.getQst();
+    },
+
+    data() {
+        return {
+            datas: {},
+            datasAnswers: {},
+            qstID: "",
+            qst: new Form({
+                id: "",
+                qst: "",
+                multi: ""
+            }),
+            ans: new Form({
+                id: "",
+                qst_id: "",
+                ans: ""
+            }),
+            test: new Form({
+                id: "",
+                user_id: "",
+                qst_id: "",
+                answer_id: "",
+            })
+        };
+    },
+
+    methods: {
+        getQst() {
+            axios.get("/getQst").then(({ data }) => (this.datas = data));
+        },
+
+        getAnswer(id) {
+            axios
+                .get("/getAnswer/" + id)
+                .then(({ data }) => (this.datasAnswers = data));
+        },
+        getAnswerId (id) {
+            this.test.answer_id = id
+        },
+        addAnswerModal(qst, id) {
+            $("#exampleModal").modal("show");
+            this.qstID = id;
+            this.ans.qst_id = id;
+            this.getAnswer(id);
+        },
+        sendAnswer() {
+            this.test.ans_id = this.ans.ans;
+            this.test
+                .post("/sendAnswer/" + this.qstID)
+                .then(() => {
+                    Vue.swal({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: toast => {
+                            toast.addEventListener(
+                                "mouseenter",
+                                Swal.stopTimer
+                            );
+                            toast.addEventListener(
+                                "mouseleave",
+                                Swal.resumeTimer
+                            );
+                        },
+                        icon: "success",
+                        title: "Successfully updated"
+                    });
+                })
+                .catch(() => {});
+        }
+    }
+};
+</script>

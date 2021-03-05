@@ -30,3 +30,5 @@ Route::get('gqst','QstController@index');
 
 //-------------- User --------------
 Route::get('gtest','TesttController@gtest');
+Route::post('/sendAnswer/{qstId}','TesttController@sendAnswer');
+

@@ -4,5 +4,5 @@
 <script src="https://kit.fontawesome.com/e696b1788a.js" crossorigin="anonymous"></script>
 </head>
 <div id="app">
- <gqst-component></gqst-component>
+ <gtest-component></gtest-component>
 </div>
