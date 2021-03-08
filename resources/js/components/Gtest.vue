@@ -27,15 +27,8 @@
                             <div>
                                 <span v-for="answer in datasAnswers" :key="answer.id">
                                     <span @click="getAnswerId(answer.id)">
-                                        <input type="radio" :id="answer.id" name="gender" :value="answer.ans" :disabled="inputDisbled">
+                                        <input type="radio" :id="answer.id" :value="answer.ans" :disabled="test.done && test.answer_id == answer.id  ? true : false ">
                                         <label :for="answer.id">{{ answer.ans }}</label><br>
-                                    </span>
-                                    <span style="color : red">
-                                        <span v-for="test in datasTest" :key="test.id">
-                                            <span v-if="test.done && test.answer_id == answer.id  ? inputDisbled = true : inputDisbled = false ">
-                                                done
-                                            </span>
-                                        </span>
                                     </span>
                                 </span>
                                 
@@ -168,6 +161,7 @@ export default {
         },
         ifDone() {
             
+  
         }
     }
 };

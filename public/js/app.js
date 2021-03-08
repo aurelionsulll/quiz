@@ -2450,13 +2450,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -44164,8 +44157,11 @@ var render = function() {
                               attrs: {
                                 type: "radio",
                                 id: answer.id,
-                                name: "gender",
-                                disabled: _vm.inputDisbled
+                                disabled:
+                                  _vm.test.done &&
+                                  _vm.test.answer_id == answer.id
+                                    ? true
+                                    : false
                               },
                               domProps: { value: answer.ans }
                             }),
@@ -44175,25 +44171,6 @@ var render = function() {
                             ]),
                             _c("br")
                           ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          { staticStyle: { color: "red" } },
-                          _vm._l(_vm.datasTest, function(test) {
-                            return _c("span", { key: test.id }, [
-                              (test.done && test.answer_id == answer.id
-                              ? (_vm.inputDisbled = true)
-                              : (_vm.inputDisbled = false))
-                                ? _c("span", [
-                                    _vm._v(
-                                      "\n                                            done\n                                        "
-                                    )
-                                  ])
-                                : _vm._e()
-                            ])
-                          }),
-                          0
                         )
                       ])
                     }),
