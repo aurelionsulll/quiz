@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Qst;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QstController extends Controller
 {
@@ -11,10 +12,15 @@ class QstController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index() 
     {
-        return view('admin.gqst');
+        if(Auth::user()->is_admin){
+            return view('admin.gqst');
+        }
+        else {
+            return view('user.gtest');
+        }
     }
 
     public function getQst() 

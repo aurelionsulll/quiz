@@ -24,16 +24,16 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div>
-                                <p v-if="!datasAnswers">already submited</p>
-                                <span v-for="answer in datasAnswers" :key="answer.id">
+                            <p v-if="!datasAnswers">already submited</p>
+                            <div v-if="!multi">
+                                <span v-for="answer in datasAnswers" :key="answer.id" >
                                     <span @click="getAnswerId(answer.id)">
                                         <input type="radio" :id="answer.id" :value="answer.ans" name="ans">
                                         <label :for="answer.id">{{ answer.ans }}</label><br>
                                     </span>
                                 </span>
-                                
                             </div>
+                            
                         </div>
                         <div class="modal-footer">
                             <button
@@ -63,7 +63,7 @@
                                 <td>{{ qst.qst }}</td>
                                 <th scope="row">
                                     <i
-                                        @click="addAnswerModal(qst, qst.id)"
+                                        @click="addAnswerModal(qst, qst.id,qst.multi)"
                                         class="far fa-plus-square"
                                         data-toggle="modal"
                                         data-target="#exampleModal"
@@ -85,6 +85,7 @@ export default {
 
     data() {
         return {
+            multi: false,
             datas: {},
             datasAnswers: {},
             datasTest: {},
@@ -127,11 +128,17 @@ export default {
         getAnswerId (id) {
             this.test.answer_id = id
         },
-        addAnswerModal(qst, id) {
+        addAnswerModal(qst, id,multi) {
             $("#exampleModal").modal("show");
             this.qstID = id;
             this.ans.qst_id = id;
             this.getAnswer(id);
+            if(multi){
+                this.multi = true;
+            }
+            else{
+                this.multi = false
+            }
         },
         sendAnswer() {
             this.test.ans_id = this.ans.ans;

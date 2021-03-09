@@ -2458,6 +2458,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      multi: false,
       datas: {},
       datasAnswers: {},
       datasTest: {},
@@ -2509,11 +2510,17 @@ __webpack_require__.r(__webpack_exports__);
     getAnswerId: function getAnswerId(id) {
       this.test.answer_id = id;
     },
-    addAnswerModal: function addAnswerModal(qst, id) {
+    addAnswerModal: function addAnswerModal(qst, id, multi) {
       $("#exampleModal").modal("show");
       this.qstID = id;
       this.ans.qst_id = id;
       this.getAnswer(id);
+
+      if (multi) {
+        this.multi = true;
+      } else {
+        this.multi = false;
+      }
     },
     sendAnswer: function sendAnswer() {
       this.test.ans_id = this.ans.ans;
@@ -44140,45 +44147,45 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _c(
-                    "div",
-                    [
-                      !_vm.datasAnswers
-                        ? _c("p", [_vm._v("already submited")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm._l(_vm.datasAnswers, function(answer) {
-                        return _c("span", { key: answer.id }, [
-                          _c(
-                            "span",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.getAnswerId(answer.id)
+                  !_vm.datasAnswers
+                    ? _c("p", [_vm._v("already submited")])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.multi
+                    ? _c(
+                        "div",
+                        _vm._l(_vm.datasAnswers, function(answer) {
+                          return _c("span", { key: answer.id }, [
+                            _c(
+                              "span",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getAnswerId(answer.id)
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _c("input", {
-                                attrs: {
-                                  type: "radio",
-                                  id: answer.id,
-                                  name: "ans"
-                                },
-                                domProps: { value: answer.ans }
-                              }),
-                              _vm._v(" "),
-                              _c("label", { attrs: { for: answer.id } }, [
-                                _vm._v(_vm._s(answer.ans))
-                              ]),
-                              _c("br")
-                            ]
-                          )
-                        ])
-                      })
-                    ],
-                    2
-                  )
+                              },
+                              [
+                                _c("input", {
+                                  attrs: {
+                                    type: "radio",
+                                    id: answer.id,
+                                    name: "ans"
+                                  },
+                                  domProps: { value: answer.ans }
+                                }),
+                                _vm._v(" "),
+                                _c("label", { attrs: { for: answer.id } }, [
+                                  _vm._v(_vm._s(answer.ans))
+                                ]),
+                                _c("br")
+                              ]
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _vm._m(1)
@@ -44208,7 +44215,7 @@ var render = function() {
                 },
                 on: {
                   click: function($event) {
-                    return _vm.addAnswerModal(qst, qst.id)
+                    return _vm.addAnswerModal(qst, qst.id, qst.multi)
                   }
                 }
               })
