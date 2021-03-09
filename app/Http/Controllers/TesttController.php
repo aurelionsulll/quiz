@@ -16,7 +16,7 @@ class TesttController extends Controller
 
     public function sendAnswer(Request $request, $id)
     {
-        $testt = Testt::where('qst_id',$id)->first();
+        $testt = Testt::where('qst_id',$id)->where('user_id',Auth::id())->first();
         if ($testt === null) {
             $test = new Testt();
             $test->user_id = Auth::id();
@@ -39,7 +39,7 @@ class TesttController extends Controller
 
     public function getAnswerTest($id) 
     {
-        $testt = Testt::where('qst_id',$id)->first();
+        $testt = Testt::where('qst_id',$id)->where('user_id',Auth::id())->first();
         if ($testt === null) {
             return Answer::where('qst_id',$id)->get();
         }
