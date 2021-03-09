@@ -2451,6 +2451,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -44185,7 +44194,46 @@ var render = function() {
                         }),
                         0
                       )
-                    : _vm._e()
+                    : _c(
+                        "div",
+                        _vm._l(_vm.datasAnswers, function(answer) {
+                          return _c("span", { key: answer.id }, [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c(
+                                "span",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getAnswerId(answer.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    staticClass: "form-check-input",
+                                    attrs: {
+                                      type: "checkbox",
+                                      id: answer.id,
+                                      name: "ans[]"
+                                    },
+                                    domProps: { value: answer.ans }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-check-label",
+                                      attrs: { for: answer.id }
+                                    },
+                                    [_vm._v(_vm._s(answer.ans))]
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
+                        }),
+                        0
+                      )
                 ]),
                 _vm._v(" "),
                 _vm._m(1)

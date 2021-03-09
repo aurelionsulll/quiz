@@ -33,7 +33,16 @@
                                     </span>
                                 </span>
                             </div>
-                            
+                            <div v-else>
+                                <span v-for="answer in datasAnswers" :key="answer.id" >
+                                    <div class="form-check">
+                                        <span @click="getAnswerId(answer.id)">
+                                            <input class="form-check-input" type="checkbox" :value="answer.ans" :id="answer.id" name="ans[]">
+                                            <label class="form-check-label" :for="answer.id">{{ answer.ans }}</label>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button
