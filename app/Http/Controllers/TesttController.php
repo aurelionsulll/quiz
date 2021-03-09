@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Testt;
 use App\Answer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TesttController extends Controller
 {
@@ -18,7 +19,7 @@ class TesttController extends Controller
         $testt = Testt::where('qst_id',$id)->first();
         if ($testt === null) {
             $test = new Testt();
-            $test->user_id = 1;
+            $test->user_id = Auth::id();
             $test->qst_id = $id;
             $test->answer_id = $request->answer_id;
             $test->done = 1;
