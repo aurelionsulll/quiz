@@ -2450,6 +2450,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getQst();
@@ -2492,7 +2493,7 @@ __webpack_require__.r(__webpack_exports__);
     getAnswer: function getAnswer(id) {
       var _this2 = this;
 
-      axios.get("/getAnswer/" + id).then(function (_ref2) {
+      axios.get("/getAnswerTest/" + id).then(function (_ref2) {
         var data = _ref2.data;
         return _this2.datasAnswers = data;
       });
@@ -44154,22 +44155,18 @@ var render = function() {
                           },
                           [
                             _c("input", {
-                              attrs: {
-                                type: "radio",
-                                id: answer.id,
-                                disabled:
-                                  _vm.test.done &&
-                                  _vm.test.answer_id == answer.id
-                                    ? true
-                                    : false
-                              },
+                              attrs: { type: "radio", id: answer.id },
                               domProps: { value: answer.ans }
                             }),
                             _vm._v(" "),
                             _c("label", { attrs: { for: answer.id } }, [
                               _vm._v(_vm._s(answer.ans))
                             ]),
-                            _c("br")
+                            _c("br"),
+                            _vm._v(" "),
+                            _vm.datasAnswers.length < 1
+                              ? _c("p", [_vm._v("no")])
+                              : _vm._e()
                           ]
                         )
                       ])

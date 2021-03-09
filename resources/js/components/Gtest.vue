@@ -27,8 +27,9 @@
                             <div>
                                 <span v-for="answer in datasAnswers" :key="answer.id">
                                     <span @click="getAnswerId(answer.id)">
-                                        <input type="radio" :id="answer.id" :value="answer.ans" :disabled="test.done && test.answer_id == answer.id  ? true : false ">
+                                        <input type="radio" :id="answer.id" :value="answer.ans">
                                         <label :for="answer.id">{{ answer.ans }}</label><br>
+                                        <p v-if="datasAnswers.length < 1">no</p>
                                     </span>
                                 </span>
                                 
@@ -115,7 +116,7 @@ export default {
 
         getAnswer(id) {
             axios
-                .get("/getAnswer/" + id)
+                .get("/getAnswerTest/" + id)
                 .then(({ data }) => (this.datasAnswers = data));
         },
         getTest() {

@@ -32,4 +32,6 @@ Route::get('gqst','QstController@index');
 Route::get('gtest','TesttController@gtest');
 Route::post('/sendAnswer/{qstId}','TesttController@sendAnswer');
 Route::get('/getTest','TesttController@getTest');
+Route::get('/getAnswerTest/{id}','TesttController@getAnswerTest');
+
 
