@@ -16,6 +16,7 @@ Vue.component('rep-component', require('./components/Rep.vue').default);
 
 //User
 Vue.component('gtest-component', require('./components/Gtest.vue').default);
+Vue.component('qstbyid-component', require('./components/Qstbyid.vue').default);
 
 
 

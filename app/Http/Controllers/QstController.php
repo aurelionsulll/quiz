@@ -67,6 +67,7 @@ class QstController extends Controller
 
     public function getQstByUserId($id)
     {
-        return Testt::where('user_id',$id)->get();
+      return Testt::where('user_id',$id)->with('answer')->with('qst')->get();
+
     }
 }
