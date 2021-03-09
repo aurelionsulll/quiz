@@ -25,11 +25,11 @@
                         </div>
                         <div class="modal-body">
                             <div>
+                                <p v-if="!datasAnswers">already submited</p>
                                 <span v-for="answer in datasAnswers" :key="answer.id">
                                     <span @click="getAnswerId(answer.id)">
-                                        <input type="radio" :id="answer.id" :value="answer.ans">
+                                        <input type="radio" :id="answer.id" :value="answer.ans" name="ans">
                                         <label :for="answer.id">{{ answer.ans }}</label><br>
-                                        <p v-if="datasAnswers.length < 1">no</p>
                                     </span>
                                 </span>
                                 
