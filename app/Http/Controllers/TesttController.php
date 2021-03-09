@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TesttController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function gtest() 
     {
         return view('user.gtest');
