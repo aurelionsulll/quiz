@@ -29,6 +29,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     quiz
                 </a>
+                @if (auth()->check() && auth()->user()->is_admin == 1)
+                    <button class="btn btn-success"><a href="{{ url('/rep') }}" style="color: white!important">Rep</a></button>  
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
