@@ -35,3 +35,7 @@ Route::get('/getTest','TesttController@getTest');
 Route::get('/getAnswerTest/{id}','TesttController@getAnswerTest');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
