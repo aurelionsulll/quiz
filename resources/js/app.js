@@ -10,9 +10,11 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.use(VueSweetalert2);
 
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 //Admin
 Vue.component('gqst-component', require('./components/Gqst.vue').default);
+Vue.component('rep-component', require('./components/Rep.vue').default);
+
+//User
 Vue.component('gtest-component', require('./components/Gtest.vue').default);
 
 

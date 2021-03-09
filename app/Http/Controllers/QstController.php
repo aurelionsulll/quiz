@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Qst;
+use App\Testt;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +28,7 @@ class QstController extends Controller
     public function getQst() 
     {
         return Qst::all();
+
     }
 
     public function createQst(Request $request)
@@ -48,5 +51,22 @@ class QstController extends Controller
     {
         $qst = Qst::find($id);
         $qst->delete();
+    }
+
+
+    public function getRep()
+    {
+        return view('admin.rep');
+    }
+
+
+    public function getUser()
+    {
+        return User::where('is_admin', 0)->get();
+    }
+
+    public function getQstByUserId($id)
+    {
+        return Testt::where('user_id',$id)->get();
     }
 }

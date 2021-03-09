@@ -21,6 +21,11 @@ Route::get('gqst','QstController@index');
     Route::post('/createQst','QstController@createQst');
     Route::put('/editQst/{id}','QstController@editQst');
     Route::delete('/deleteQst/{id}','QstController@deleteQst');
+    // Rep
+    Route::get('rep','QstController@getRep');
+    Route::get('getUser','QstController@getUser');
+    Route::get('getQstByUserId/{id}','QstController@getQstByUserId');
+
     
     //-------------- G answer --------------
     Route::get('/getAnswer/{id}','AnswerController@getAnswer');
